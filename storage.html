@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarked Images</title>
+    <style>
+        .image-container { display: flex; gap: 20px; flex-wrap: wrap; }
+        .image-card { width: 150px; }
+        .image-card img { width: 100%; height: auto; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Bookmarked Images</h2>
+    <div class="image-container" id="bookmarkedImages"></div>
+    <a href="index.html">Back to Gallery</a>
+
+    <script>
+        function loadBookmarkedImages() {
+            let bookmarks = JSON.parse(localStorage.getItem("bookmarkedImages")) || [];
+            let container = document.getElementById("bookmarkedImages");
+            container.innerHTML = bookmarks.length ? "" : "<p>No bookmarks yet.</p>";
+            bookmarks.forEach(imgSrc => {
+                let div = document.createElement("div");
+                div.classList.add("image-card");
+                div.innerHTML = <img src="${imgSrc}" alt="Bookmarked Image">;
+                container.appendChild(div);
+            });
+        }
+        window.onload = loadBookmarkedImages;
+    </script>
+</body>
+</html>

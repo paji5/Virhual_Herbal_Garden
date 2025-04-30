@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Herb Here</title>
+    <link rel="icon" href="./files/imagehack.png">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <style>
+        /* Video Background */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Overlay to make text readable */
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: -1;
+        }
+
+        /* Ensure form content is visible over video */
+        .register-body {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="register-body">
+    
+    <!-- Video Background -->
+    <div class="video-container">
+        <video autoplay muted loop>
+            <source src="https://videos.pexels.com/video-files/3116737/3116737-hd_1920_1080_25fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Dark Overlay to make content readable -->
+    <div class="background-overlay"></div>
+
+    <div class="content" id="home"> 
+        <nav>
+            <img src="./files/imagehack7.jpg" class="logo" alt="Logo" title="Virtual Herb Garden">
+            <ul class="navbar">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+
+        <section class="registration">
+            <div class="register-form">
+                <h1>Order  <span>Here</span></h1>
+                <h2>Instructions :</h3>
+                <h3>1. You can order seeds and plants </h3>
+                <h3>2. An order for a significant quantity of seeds and plants was received only.  </h3>
+                <h3>3. currently we have only cash on delivery serives </h3>
+                <br><br>
+                <h2>User <span>Information</span></h2>
+                <form onsubmit="return sendEmail(event)">
+                    <input type="text" name="myname1" placeholder="Name" id="name" required>
+                    <input type="email" name="myemail" placeholder="Email-Id" id="email" required>
+                    <input type="tel" name="myphone" placeholder="Phone No." id="phonenum" required>
+                    <input type="text" name="myage" placeholder="Address to deliver order" id="address" required>
+            
+                    <h2> Order Seeds and<span>Plants </span></h2>
+                    <input type="text" name="myname1" placeholder="seed or plant name" id="herbName" required>
+                    <input type="text" name="myemail" placeholder="Quantity" id="herbQuantity" required>
+            
+                    <br><br>
+                    <button class="button" type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <section class="footer">
+            <div class="foot">
+                <div class="footer-content">
+                    <div class="footlinks">
+                        <h4>Connect</h4>
+                        <div class="social">
+                            <a href="https://www.facebook.com/groups/532806162289925/?ref=share&mibextid=NSMWBT" target="_blank"><i class='bx bxl-facebook'></i></a>
+                            <a href="https://www.instagram.com/orgvertualherbal?igsh=MW03djNsNTIzOW96dw==" target="_blank"><i class='bx bxl-instagram'></i></a>
+                           
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="end">
+                <p>Virtual Herbal Garden <br>That provides an interactive, educational, and immersive experience to users,<br>showcasing the diverse range of medicinal plants used in AYUSH</p>
+            </div>
+        </section>
+
+        <!-- Javascript -->
+        <script>
+            function sendEmail(event) {
+                event.preventDefault(); // Prevents form submission and page reload
+
+                var name = document.getElementById("name").value;
+                var email = document.getElementById("email").value;
+                var phone = document.getElementById("phonenum").value;
+                var age = document.getElementById("age").value;
+                var herbName = document.getElementById("herbName").value;
+                var herbInfo = document.getElementById("herbInfo").value;
+
+                // Replace this with the email where you want to receive the data
+                var recipientEmail = "simarjeetsinghpadam50@gmail.com"; // Change this to your actual email
+
+                // Create the mailto link
+                var mailtoLink = `mailto:${recipientEmail}?subject=New Herb Submission from ${name}&body=
+                    Name: ${name}%0D%0A
+                    Email: ${email}%0D%0A
+                    Phone: ${phone}%0D%0A
+                    Age: ${age}%0D%0A
+                    Herb Name: ${herbName}%0D%0A
+                    Herb Info: ${herbInfo}`;
+
+                // Open default email client
+                window.location.href = mailtoLink;
+            }
+        </script>
+
+    </div>
+
+</body>
+</html>

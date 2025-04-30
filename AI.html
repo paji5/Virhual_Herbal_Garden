@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌿 Herbal Wikipedia Search</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #009432, #006400);
+            color: white;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 100, 0, 0.9);
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            background: #ffcc00;
+            color: #006400;
+            border-radius: 5px;
+        }
+
+        /* Header */
+        h2 {
+            margin-top: 100px;
+            font-size: 32px;
+            font-weight: 600;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Search Box */
+        .search-container {
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 12px;
+            width: 50%;
+            font-size: 18px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            text-align: center;
+            transition: 0.3s;
+            background: #f5f5dc;
+            color: #006400;
+            font-weight: bold;
+        }
+
+        input:focus {
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Search Button */
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            background: #ffcc00;
+            font-weight: bold;
+            color: #333;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ffdb4d;
+            transform: scale(1.1);
+        }
+
+        /* Results Box */
+        #results {
+            margin-top: 30px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            background: rgba(255, 255, 255, 0.9);
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        #results.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0px);
+        }
+
+        /* Floating Leaves Animation */
+        .leaf {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('https://www.freeiconspng.com/uploads/green-leaf-png-26.png') no-repeat center/cover;
+            opacity: 0.7;
+            animation: floatLeaf 6s linear infinite;
+        }
+
+        @keyframes floatLeaf {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(50px) rotate(45deg); opacity: 0.7; }
+            100% { transform: translateY(100px) rotate(90deg); opacity: 0.5; }
+        }
+
+        /* Footer */
+        footer {
+            background: #006400;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #ffcc00;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="index.html">🏡 Home</a>
+       <!-- <a href="#">🌿 </a>-->
+       
+        <a href="https://www.bing.com/visualsearch?cc=in">📖 Snap & Search</a>
+    </div>
+
+    <h2>🍃 Herbal Wikipedia Search 🌿</h2>
+    <h3>Instructions :</h3>
+    <h4> Enter the name of the herb in English and You can also Snap & Search</h4>
+    
+    
+
+    <div class="search-container">
+        <input type="text" id="searchQuery" placeholder="Search for herbs...">
+        <button onclick="search()">🔍 Search</button>
+    </div>
+    
+    <div id="results"></div>
+
+    <!-- Floating Leaves -->
+    <script>
+        function createLeaves() {
+            for (let i = 0; i < 10; i++) {
+                let leaf = document.createElement('div');
+                leaf.classList.add('leaf');
+                document.body.appendChild(leaf);
+
+                let randomX = Math.random() * window.innerWidth;
+                let randomDelay = Math.random() * 5;
+                let randomDuration = 5 + Math.random() * 5;
+
+                leaf.style.left = `${randomX}px`;
+                leaf.style.animationDuration = `${randomDuration}s`;
+                leaf.style.animationDelay = `${randomDelay}s`;
+            }
+        }
+
+        createLeaves();
+
+        function search() {
+            let query = document.getElementById("searchQuery").value.trim();
+            let resultsDiv = document.getElementById("results");
+
+            if (query === "") {
+                resultsDiv.innerHTML = "<p>Please enter a search term.</p>";
+                resultsDiv.classList.add("show");
+                return;
+            }
+
+            resultsDiv.innerHTML = "<h3>Loading...</h3>";
+            resultsDiv.classList.add("show");
+
+            fetch(`https://en.wikipedia.org/api/rest_v1/page/html/${encodeURIComponent(query)}`)
+                .then(response => response.text())
+                .then(html => {
+                    let parser = new DOMParser();
+                    let doc = parser.parseFromString(html, "text/html");
+                    
+                    let paragraphs = doc.querySelectorAll("p");
+                    let content = "";
+                    
+                    for (let i = 0; i < Math.min(paragraphs.length, 10); i++) { 
+                        let text = paragraphs[i].textContent;
+                        text = text.replace(/[^A-Za-z\s]/g, "");
+                        content += text + "<br><br>";
+                    }
+
+                    if (content.trim()) {
+                        resultsDiv.innerHTML = `<h3>🌱 Herbal Info: <strong>${query}</strong></h3><p>${content}</p>`;
+                    } else {
+                        resultsDiv.innerHTML = "<p>No relevant content found.</p>";
+                    }
+                })
+                .catch(() => {
+                    resultsDiv.innerHTML = "<p>Error fetching Wikipedia data. Try again.</p>";
+                });
+        }
+    </script>
+
+    <!-- Footer -->
+    
+
+</body>
+</html>
